@@ -405,7 +405,7 @@ VALUES
 
 'breed' 열에 아무런 값도 주지 않아도 'DEFAULT' 제약조건 때문에 기본값으로 'Unknown'이 들어간 모습이다. 
 
-이처럼 'Unknown' 제약조건은 테이블의 특정 열에 대해 항상 값을 갖도록 하고자 할 때 유용하다.
+이처럼 'DEFAULT' 제약조건은 테이블의 특정 열에 대해 항상 값을 갖도록 하고자 할 때 유용하다.
 
 <br>
 
@@ -415,7 +415,7 @@ VALUES
 
 ![capture 46](https://github.com/mksystem98/TIL/assets/147119824/86342cdc-6930-40fb-af5b-c505710f20d8)
 
-테이블 정보에서 보이는 'Key' 열은 무엇을 의미하는 열일까 알아보도록 하자.
+테이블 정보에서 보이는 'Key' 열은 무엇을 의미하는 열인지 알아보도록 하자.
 
 <br>
 
@@ -423,15 +423,71 @@ VALUES
 
 name은 'Kim', age는 20의 값을 가진 동일한 6행의 데이터를 삽입해보았다. 이 동일한 값의 행들은, 관리하거나 분간하기 정말 어려워질 것이다. 
 
-이러한 데이터가 있다면 일종의 **고유 식별자**를 추가하여 구분할 수 있게 해야 한다.
+이러한 데이터가 있다면 일종의 **고유 식별자**를 추가하여 구분할 수 있게 해야 한다. 이 때, **Primary Key(기본키)**를 사용할 수 있다.
+
+```mysql
+CREATE TABLE unique_human (
+	human_id INT PRIMARY KEY,
+	name VARCHAR(30) NOT NULL,
+	age INT NOT NULL
+);
+
+       or
+       
+CREATE TABLE unique_human2 (
+	human_id INT ,
+	name VARCHAR(30) NOT NULL,
+	age INT NOT NULL,
+  PRIMARY KEY (human_id)
+);
+```
+
+이렇게 human_id 열을 'Primary Key'로 선언함으로써 인해 각 행을 고유하게 식별할 수 있다. 제품의 바코드나 시리얼 번호 같은 것이다.
+
+```mysql
+INSERT INTO unique_human (human_id, name, age)
+VALUES
+	(1, 'Kim', 20),
+	(2, 'Kim', 20),
+	(3, 'Kim', 20);
+```
+
+![image](https://github.com/mksystem98/TIL/assets/147119824/d8fc5d95-db72-4692-8eff-6c04a2b3f26f)
 
 
 
+<br>
 
+### AUTO_INCREMENT
 
+하지만, 이렇게 수작업으로 'Primary Key'에 대한 값을 계속 넣어주는 것은 번거롭다. 
 
+이를 **AUTO_INCREMENT**를 선언함으로써 해결할 수 있다. 
 
+```mysql
+CREATE TABLE unique_human3 (
+	human_id INT AUTO_INCREMENT,  -- AUTO_INCREMENT 선언
+  name VARCHAR(30) NOT NULL,
+  age INT NOT NULL,
+  PRIMARY KEY (human_id)
+);
+```
 
+```mysql
+INSERT INTO unique_human3 (name, age)
+VALUES
+	('LEE', 20),
+	('LEE', 20),
+	('LEE', 20);
+```
+
+테이블에 값을 삽입할 때, human_id는 제외하고 동일한 3개의 행을 삽입하였다.
+
+<br>
+
+![image](https://github.com/mksystem98/TIL/assets/147119824/78c91f8f-81a1-49f0-af3d-5d1ab1617ee2)
+
+이처럼, 테이블에 새로운 행이 추가될 때마다, 'AUTO_INCREMENT'로 설정된 열의 값은 **자동으로 증가**하여 각 행이 고유한 식별자를 가지게 한다. 이를 통해 개발자는 각 행의 고유성을 수동으로 관리하지 않아도 되므로 생산성을 높일 수 있게 된다.
 
 
 

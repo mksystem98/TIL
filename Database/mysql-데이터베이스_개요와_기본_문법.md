@@ -117,8 +117,6 @@ USE 데이터베이스이름;
 
 행(노란색 박스)는 실제 입력된 데이터이다. 첫 번째 행에서는 name은 'happy', age는 3, breed는 'Bulldog' 로 데이터가 입력되었다.
 
-### 
-
 <br>
 
 
@@ -488,6 +486,261 @@ VALUES
 ![image](https://github.com/mksystem98/TIL/assets/147119824/78c91f8f-81a1-49f0-af3d-5d1ab1617ee2)
 
 이처럼, 테이블에 새로운 행이 추가될 때마다, 'AUTO_INCREMENT'로 설정된 열의 값은 **자동으로 증가**하여 각 행이 고유한 식별자를 가지게 한다. 이를 통해 개발자는 각 행의 고유성을 수동으로 관리하지 않아도 되므로 생산성을 높일 수 있게 된다.
+
+<br>
+
+
+
+## CRUD
+
+CRUD는 데이터를 처리하는 기본적인 네 가지 작업을 뜻하는 용어이다. SQL에서만아니라 프로그래밍에서 널리 적용되고 있다. 
+
+### 1. Create (생성)
+
+- 데이터를 생성하고 데이터베이스에 추가하는 작업
+- '**CREATE**'문으로 데이터베이스와 테이블을 생성
+- '**INSERT**'문을 사용하여 새로운 데이터(행)을 테이블에 추가
+
+<br>
+
+### 2. Read (읽기)
+
+- 데이터를 조회하고 읽는 작업
+
+- '**SELECT**'문을 사용하여 데이터를 조회
+
+- '**WHERE**'문을 사용하여 행의 범위를 좁혀 조회할 수 있다. 행을 업데이트 하거나 삭제할 때도 사용됨
+
+    - ```mysql
+        -- breed가 'Bulldog'인 행 조회
+        SELECT * FROM dogs WHERE breed = 'Bulldog';
+        
+        -- age가 4인 행 조회
+        SELECT * FROM dogs WHERE age = 4;
+        ```
+
+<br>
+
+### 3. Update (갱신)
+
+- 데이터베이스의 기존 데이터를 수정하는 작업
+
+- **'UPDATE'** 문을 사용하여 데이터를 갱신
+
+- ```mysql
+    -- UPDATE 테이블_이름 SET 의 문법으로 사용
+    -- breed가 'Poodle'인 강아지를 'Mix'로 변경
+    UPDATE dogs SET breed = 'Mix' WHERE breed = "Poodle";
+    
+    -- name이 'happy'인 강아지의 나이를 5살로 변경
+    UPDATE dogs SET age = 5 WHERE name = 'happy';
+    ```
+
+<br>
+
+### 4. Delete (삭제)
+
+- 데이터베이스에서 데이터를 삭제하는 작업
+
+- **'DELETE'**문을 사용하여 데이터를 삭제
+
+- ```mysql
+    -- 이름이 'happy'인 고양이 삭제
+    DELETE FROM dogs WHERE name = 'happy';
+    
+    -- dogs 테이블의 모든 행 삭제
+    DELETE FROM dogs;
+    ```
+
+<br>
+
+### Alias(AS) - 별칭 부여
+
+**'AS'** 명령어를 이용해 열이나 테이블에 별칭을 부여하는데 사용되며, 실제 열의 이름이 바뀌는 것이 아니라 결과를 이해하기 쉬운 형태로 표시하는 것이다.
+
+```mysql
+-- human_id 열을 id로 표시, 실제 열 이름이 변경되는 것은 아님.
+SELECT human_id AS id, name, age FROM unique_human;
+```
+
+<img src="https://github.com/mksystem98/TIL/assets/147119824/1d471f0e-fb60-4503-bc6a-ca5703330f8a" alt="capture 50" style="zoom:130%;" />
+
+
+
+----------------------------
+
+## 
+
+## 문자열 함수
+
+데이터를 처리할 때, 여러 문자열을 하나로 결합하거나, 특정 부분을 추출하고 대체하는 등 다양한 작업을 수행해야 하는 경우가 있다. MySQL에서는 이러한 작업들을 간단하고 효율적으로 수행할 수 있도록 다양한 문자열 함수를 제공하고 있다. 
+
+[MySQL - String Functions 공식 문서](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html)
+
+<br>
+
+문자열 함수를 다루기 위해 'movie' 테이블을 생성해 보았다.
+
+```mysql
+CREATE TABLE movies(
+	movie_id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(50),
+  director_fname VARCHAR(50),
+  director_lname VARCHAR(50),
+  released_year INT,
+  runtime INT,
+  language VARCHAR(50)
+);
+```
+
+```mysql
+INSERT INTO movies (title, director_fname, director_lname, released_year, runtime, language)
+VALUES 
+	('Parasite', 'Junho', 'Bong', 2019, 131, 'Korean'),
+	('Oldboy', 'Chanwook', 'Park', 2003, 120, 'Korean'),
+	('Monster', 'Hirokazu', 'Koreeda', 2023, 126, 'Japanese'),
+	('Love Letter', 'Shunji', 'Iwai', 1995, 117, 'Japanese'),
+	('ReQuiem', 'Darren', 'Aronofsky', 2000, 101, 'English');
+```
+
+<br>
+
+### CONCAT - 문자열 결합
+
+'CONCAT(Concatenate)' 함수를 사용해 문자열을 하나로 결합할 수 있다.
+
+```mysql
+SELECT CONCAT('Hello', ' ', 'World');
+-- 결과는 'Hello World'
+```
+
+```mysql
+SELECT CONCAT(director_fname, ' ', director_lname) AS author_name FROM movies;
+```
+
+<img src="https://github.com/mksystem98/TIL/assets/147119824/26740441-3838-4e36-afba-c0f10b2fbb7a" alt="image" style="zoom:105%;" />
+
+<br>
+
+### CONCAT_WS(CONCAT With Separator)
+
+이 함수는  'CONCAT'처럼 문자열을 결합하는 기능을 갖고 있는데, 다른 점은 구분자가 사용되어 결합되는 각 문자열 사이에 삽입된다. 
+
+```mysql
+SELECT CONCAT_WS('-', title, director_fname, director_lname) FROM movies;
+```
+
+![image](https://github.com/mksystem98/TIL/assets/147119824/389555d6-13d1-4bd8-8956-7e432acc321f)
+
+<br>
+
+### SUBSTRING() / SUBSTR() - 문자열 추출
+
+'SUBSTRING() / SUBSTR()' 함수는 문자열을 추출하는 함수이다. 
+
+```mysql
+SELECT SUBSTR('Hello World', 1, 5);  -- 1번째 문자부터 5번째 문자까지 추출 'Hello'
+SELECT SUBSTR('Hello World', 8);  -- 8번째 문자부터 출력 'orld'
+SELECT SUBSTR('Hello World', -5);  -- 뒤에서부터 5번째 문자 출력 'World'
+```
+
+```mysql
+SELECT SUBSTR(title, 1, 3) AS 'short title' FROM movies;
+```
+
+
+
+<br>
+
+### REPLACE - 문자열 대체
+
+'REPLACE' 함수는 특정 부분 문자열을 다른 문자열로 대체한다.
+
+```mysql
+REPLACE ('원본_문자열', '대체하고자_하는_부분', '대체할_새로운_문자열');
+```
+
+```mysql
+SELECT REPLACE('1 2 3 4', ' ', ' and ');
+
+-- 1 and 2 and 3 and 4     
+```
+
+<br>
+
+
+
+### REVERSE - 문자열 뒤집기
+
+'REVERSE' 함수는 문자열을 뒤집는 함수이다.
+
+```mysql
+SELECT REVERSE('Hello World');
+-- 'dlroW olleH' 
+
+SELECT REVERSE('MySQL is good');
+-- 'doog si LQSyM'   
+```
+
+
+
+<br>
+
+### CHAR_LENGTH - 문자열 길이 반환
+
+'CHAR_LENGTH' 함수는 문자열의 길이를 문자의 수로 반환한다.
+
+```mysql
+SELECT CHAR_LENGTH('Hi MySQL');
+-- 8(공백을 포함하여 반환한다.)
+```
+
+<br>
+
+### UPPER/LOWER - 대/소문자 변경
+
+'UPPER' 함수는 주어진 문자열을 모두 대문자로 변환한다.
+
+```mysql
+SELECT UPPER('Hi MySQL');
+-- 'HI MYSQL'
+```
+
+<br>
+
+'LOWER' 함수는 주어진 문자열을 모두 소문자로 변환한다.
+
+```mysql
+SELECT LOWER('Hi MySQL');
+-- 'hi mysql'
+```
+
+<br>
+
+### TRIM - 공백 제거
+
+'TRIM' 함수는 문자열의 양쪽 끝에 있는 공백을 제거하는 데 사용되며, 문자열 내부의 공백은 제거하지 않는다.
+
+```Mysql
+SELECT TRIM('   Hi MySQL     ');
+-- 'Hi MySQL'
+```
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 

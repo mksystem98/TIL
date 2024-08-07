@@ -155,7 +155,7 @@ Date today = new Date(); // Date객체를 생성하여, 그 주소를 today에 �
 
 ## 기본형의 종류와 크기
 
-![capture 116](../../../Desktop/capture 116.png)
+![capture 119](https://github.com/user-attachments/assets/8ea2e476-c961-48d9-9a47-6e261af5ce40)
 
 
 
@@ -420,15 +420,323 @@ String result = (number >= 0) ? "양수" : "음수";  // (number >= 0)가 false�
 
 
 
+<br>
+
+# 4. 조건문과 반복문
+
+조건에 따라 문장을 건너뛰고, 때로는 같은 문장을 반복해서 수행해야할 때, 프로그램의 흐름(flow)를 바꾸는 역할을 하는 문장들을 **'제어문(control statement)'**이라 한다. 제어문에는 **'조건문과 반복문'**이 있다.
+
+<br>
+
+## 조건문 - if
+
+if문은 가장 기본적인 조건문이다. if 다음에 오는 조건식이 참(true)이면 괄호 {} 안의 문장들을 수행한다. 조건식의 결과는 반드시 true 혹은 false이어야 한다.
+
+```java
+if (조건식) {
+		// 조건식이 참일 때 수행될 문장
+}
+
+if (score > 80){
+  System.out.println("A등급입니다.")
+}
+```
 
 
 
+<br>
+
+## if - else문
+
+if문에 'else블럭'이 추가된 형태이다. 조건식의 결과가 거짓일 때 else 블럭 내의 문장을 수행한다.
+
+```java
+if (조건식) {
+  // 조건식이 참일 때 수행될 문장
+} else {
+  // 조건식이 거짓일 때 수행될 문장
+}
+
+if (score==0) {
+  System.out.println("점수는 0입니다.")
+} else {
+  System.out.println("점수는 0이 아닙니다.")
+}
+```
+
+<br>
+
+## if-else if문
+
+처리해야할 경우의 수가 셋 이상인 경우 'if-else if'문을 사용한다. 결과가 참인 조건식을 만날 때까지 첫 번째 조건식부터 순서대로 평가한다.
+
+```java
+if (조건식1) {
+  // 조건식1이 참일 때 수행될 문장
+} else if (조건식2) {
+  // 조건식2가 참일 때 수행될 문장
+} else if (조건식3) {
+  // 조건식3이 참일 때 수행될 문장
+} else {   // 마지막은 보통 else 블록으로 끝나며, 생략 가능.
+  // 위의 어느 조건식도 만족하지 않을 때 수행될 문장
+}
+
+if (score>=90) {
+  grade = 'A';
+} else if (score >= 80) {
+  grade = 'B';
+} else if (score >= 70) {
+  grade = 'C';
+} else {
+  grade = 'D';
+}
+```
 
 
 
+<br>
+
+## 중첩 if문
+
+if문 블럭 내에 또 다른 if문을 포함시키는 것이 가능하다. 내부의 if문은 외부의 if문보다 안쪽으로 들여쓰기를 해서 두 if문의 범위가 명확히 구분될 수 있도록 작성해야 하며, 괄호{}의 생략에 주의해야 한다.
+
+```java
+if (조건식1) {
+  // 조건식1이 true일 때 수행될 문장들
+  if (조건식2) {
+    // 조건식1과 조건식2가 모두 true일 때 수행될 문장들
+  } else {
+    //조건식1이 true이고, 조건식2가 false일 때 수행될 문장들
+  }
+} else {
+  // 조건식1이 false일 때 수행될 문장들
+}
+```
+
+<br>
+
+## switch문
+
+switch문은  하나의 조건식으로 많은 경우의 수를 처리할 수 있다. 조건식을 먼저 계산한 다음, 그 결과와 일치하는 case문으로 이동하여 문장들을 수행하고 break문이나 switch문의 끝을 만나면 전체 switch문을 빠져나간다.
+
+swit문의 조건식 결과는 정수 또는 문자열이어야 한다. case문의 값은 정수 상수만 가능하며, 중복되지 않도록 한다.
+
+```java
+switch (조건식) {
+  case 값1:
+    // 조건식의 결과가 값1과 같은 경우 수행될 문장
+    break;
+  case 값2:
+    // 조건식의 결과가 값2와 같은 경우 수행될 문장
+    break;
+  default:
+    // 조건식의 결과와 일치하는 case문이 없을 때 수행될 문장
+}
+
+switch(month) {
+  case 1:
+    System.out.println("묵 입니다.");
+    break;
+  case 2:
+    System.out.println("찌 입니다.");
+    break;
+  case 3:
+    System.out.println("빠 입니다.");
+    break;
+}
+```
+
+<br>
+
+# 4-2. 반복문
+
+반복문은 어떤 작업이 반복적으로 수행되도록 할 때 사용되며, for문과 while문, do-while문이 있다.
+
+<br>
+
+## for문
+
+주로 반복 횟수를 알고 있을 때 사용하는 반복문이다. '초기화', '조건식', '증감식', '블럭{}'으로 구성되어 있다. 조건식이 참인 동안 블럭내의 문장들을 반복하다 조건식이 거짓이 되었을 때 반복문을 벗어난다.
+
+![image](https://github.com/user-attachments/assets/4eee255a-2e17-49b5-9bef-28d55cc6059f)
+
+```java
+for (초기화;조건식;증감식) {
+  // 조건식이 참일 때 수행될 문장들
+}
+
+for (int i=1; i<=5; i++) {  // i가 1부터 5까지 1씩 증가하며 "Hello World!"를 5번 출력함.
+  System.out.println("Hello World!");
+}
+```
+
+<br>
+
+## 중첩 for문
+
+for문 안에 또 다른 for문을 포함시키는 것도 가능하다.
+
+```java
+for (int i=1; i<=5; i++) {
+  for (int j=1; j<=10; j++) {
+    System.out.print("*");
+  }
+  System.out.println();
+}
+
+//출력
+**********
+**********
+**********
+**********
+**********
+```
+
+<br>
+
+## 향상된 for문(enhanced for statement)
+
+배열이나 컬렉션에 저장된 요소에 접근할 때 더욱 편리한 방법으로 처리할 수 있도록 JDK1.5부터 향상된 for문이 추가되었다.
+
+```java
+for (타입 변수명 : 배열 또는 컬렉션) {
+  // 반복할 문장들
+}
+
+int[] arr = {10, 20, 30, 40, 50};
+
+for (int tmp : arr) {
+  System.out.println(tmp);
+}
+
+//출력
+10
+20
+30
+40
+50
+```
+
+<br>
+
+## while문
+
+while문은 조건식이 참인 동안 블럭 내의 문장을 반복한다. 조건식이 거짓이 될 때까지 이 과정이 계속 반복된다. while문의 조건식은 생략불가하다.
+
+![image](https://github.com/user-attachments/assets/8c8a3027-6ec3-41fb-902f-1fa8b9a2b960)
+
+```java
+while (조건식) {
+  // 조건식의 결과가 참인 동안 반복될 문장들
+}
+
+int i = 3;
+
+while (i != 0) {
+  System.out.println(i + " - Hello Java!");
+  i--;
+} 
+
+//출력
+3 - Hello Java!
+2 - Hello Java!
+1 - Hello Java!
+```
+
+<br>
+
+## do-while문
+
+기본적인 구조는 while문과 같으나 조건식과 블럭의 순서를 바꿔놓은 것이다. 블럭을 먼저 수행한 후에 조건식을 평가하기 때문에 블럭 내의 문장들이 최소한 한번은 수행될 것을 보장한다.
+
+```java
+do {
+  // 조건식의 결과가 참일 때 수행될 문장들
+} while (조건식);
+
+Scanner scanner = new Scanner(System.in);
+int targetNumber = 7; // 맞춰야 할 숫자
+int guessedNumber;
+
+System.out.println("숫자 맞추기 게임에 오신 것을 환영합니다!");
+
+do {
+	System.out.print("숫자를 맞춰보세요 (1~10): ");
+	guessedNumber = scanner.nextInt();
+
+	if (guessedNumber != targetNumber) {
+		System.out.println("틀렸습니다. 다시 시도해보세요.");
+	}
+} while (guessedNumber != targetNumber);
+
+System.out.println("정답입니다!");
+```
+
+<br>
+
+## break문
+
+break문은 자신이 포함된 가장 가까운 반복문을 벗어난다. 주로 if문과 함께 사용되어 특정 조건을 만족하면 반복문을 벗어난다.
+
+```java
+for (int i=1; i<=10; i++) {
+  System.out.println("현재 숫자: " + i);
+  
+  if (i == 5) {
+    System.out.println("숫자 5를 찾았습니다. 반복을 중단합니다.");
+    break;
+    
+    System.out.println("출력이 되는지 확인하는 문장입니다.");  // break문을 만나면 출력되지 않는 문장
+  }
+}
+```
+
+<br>
+
+## continue문
+
+반복이 진행되는 도중에 continue문을 만나면 반복문의 끝으로 이동하여 다음 반복으로 넘어간다. 반복문 내에서만 사용할 수 있다.
+
+```java
+for (int i=0; i<=10; i++) {
+  
+  if (i%2==0) {
+    continue;  // 반복문을 벗어나지 않고, 블럭의 끝으로 이동함
+  }
+  
+  System.out.println(i);
+}
+
+// 출력
+1
+3
+5
+7
+9
+```
 
 
 
+<br>
+
+## 이름 붙은 반복문
+
+중첩 반복문 앞에 이름을 붙이고 break문과 continue문에 이름을 붙여주어서 하나 이상의 반복문을 벗어나거나 건너뛸 수 있다.
+
+```java
+outerLoop:
+for (int i = 1; i <= 5; i++) {
+	for (int j = 1; j <= 5; j++) {
+		System.out.println("i: " + i + ", j: " + j);
+                
+		// 특정 조건에서 외부 반복문을 종료
+		if (i * j > 6) {
+			System.out.println("i * j가 6을 초과했습니다. outerLoop를 종료합니다.");
+				break outerLoop;
+		}
+	}
+}
+```
 
 
 

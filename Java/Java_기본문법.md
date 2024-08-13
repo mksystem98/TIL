@@ -740,25 +740,151 @@ for (int i = 1; i <= 5; i++) {
 
 
 
+<br>
+
+# 5. 배열(arrya)
+
+배열이란 같은 타입의 여러 변수를 하나의 묶음으로 다루는 것을 말한다. 
 
 
 
+## 배열의 선언과 생성
+
+배열을 선언한 후에는 배열을 생성해야 한다. 배열을 생성해야만 값을 저장할 수 있는 공간이 만들어진다.
+
+```java
+타입[] 변수이름;    or 타입 변수이름[];    // 배열의 선언
+int[] score;  or int score[]; 
+
+int[] score = new int[5];  // 5개의 int값을 저장할 수 있는, 길이가 5인 배열을 선언과 생성
+score[0] = 10;             // 배열의 초기화
+score[1] = 20;
+score[2] = 30;
+score[3] = 40;
+score[4] = 50;
+
+for(int i=0; i<score.length; i++) {  // 배열의 초기화를 for문을 통해 간단하게 할 수 있다.
+  score[i] = (i*10) + 10;
+}
+```
 
 
 
+![image](https://github.com/user-attachments/assets/3ff22a38-8d3f-4f57-972f-c06cffce3f9d)
 
 
 
+<br>
+
+## 배열의 인덱스
+
+생성된 배열의 각 저장공간을 **배열의 요소**라고 하며, **배열이름[인덱스]**의 형식으로 배열의 요소에 접근한다. 
+인덱스는 1이 아닌 0부터 시작한다. 유효한 범위를 벗어난 값을 index로 사용한다면 실행 시 에러(ArrayIndexOutOfBoundsException)가 발생한다.
+
+<br>
+
+## 배열이름.length
+
+**배열이름.lengh**를 통해 배열의 길이 정보를 알 수 있다. 배열의 길이는 변경할 수 없다. 
+
+```java
+int[] score = new int[5];
+int length = score.length;  // 배열 score의 길이가 5이기 때문에 legnth에 5가 저장됨
+```
+
+<br>
+
+## 배열의 길이 변경
+
+배열에 저장 공간이 부족하다면, 더 큰 길이의 새로운 배열을 생성하고 기존 배열에 저장된 값들을 새로운 배열에 복사하면 된다.
+
+```java
+int[] score = new int[5];
+
+int[] temp = new int[arr.length*3]; // 기존 배열보다 길이가 3배인 배열 생성
+
+for(int i=0; i<arr.length; i++) {
+  temp[i] = score[i];
+}
+
+score = temp;  // 참조변수 score가 새로운 배열을 가리키게 함.
+```
+
+<br>
+
+## 배열의 복사
+
+**System.arraycopy()**를 사용하면 빠르게 배열을 복사할 수 있다.
+
+```java
+System.arraycopy(score , 0, newScore, 0, score.length);
+              //score[0]에서 newScore[0]으로 score.length개의 데이터를 복사.
+```
 
 
 
+<br>
 
+## 랜덤 값으로 배열 채우기
 
+**Math.random()** 을 사용하면 배열을 임의의 값으로 채울 수 있다.
 
+```java
+for (int i=0; i<score.length; i++) {
+  score[i] = (int)(Math.random()*5); // 0~4범위의 랜덤 값 저장
+}
+```
 
+<br>
 
+## String 배열
 
+배열의 타입이 String인 경우에도 배열을 생성할 수 있다.
 
+```java
+String[] names = new String[3];   // 3개의 문자열을 담을 수 있는 배열 생성
+
+String[] names = { "Kim", "Lee", "Park"}; 생성과 함께 초기화할 수 있다.
+```
+
+![image](https://github.com/user-attachments/assets/b5dc5fc2-eeb6-47ac-878b-a0b9cb030d0c)
+
+참조형 변수의 기본값은  null이기 때문에 각 요소들의 값이 null로 초기화 된다.
+
+<br>
+
+## char배열과  String 클래스
+
+String 클래스는  char배열에 기능을 추가한 것이다. char배열보다 String클래스를 사용하는 것이 문자열을 다루기 더 편리하다.
+String객체는 읽을 수만 있고, 내용을 변경할 수는 없다.
+String 클래스의 주요 메서드로는 **.charAt(), .length(), .substring(), equals(), toCharArray()**등이 있다.
+
+<br>
+
+## 다차원 배열
+
+2차원 이상의 배열인 다차원 배열도 선언해서 사용할 수 있다.
+
+```java
+타입[][] 변수이름;  or 타입 변수이름[][];
+int[][] score = new int[4][3];   // 4행 3열의 2차원 배열 생성
+
+int[][] score = { {1,2,3}, {4,5,6}, {7,8,9}, {10,11,12}}; // 선언과 동시에 초기화 가능
+```
+
+![image](https://github.com/user-attachments/assets/1edc24d6-7684-40e5-a3e8-7d1d825c8376)
+
+<br>
+
+2차원 배열을 생성할 때 마지막 차수의 길이를 지정하지 않으면 유동적인 가변 배열을 구성할 수 있다.
+
+```java
+// 가변 배열
+int[][] students = new int[3][];  // 마지막 차수의 길이를 지정하지 않음.
+students[0] = new int[5];
+students[1] = new int[4];
+students[2] = new int[4];
+```
 
 
 
